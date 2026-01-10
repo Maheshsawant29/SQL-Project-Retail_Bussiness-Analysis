@@ -120,33 +120,33 @@ VALUES
 ( 1,7, "Plastic+Square"),
 ( 1,8, "Plastic+Rectangle"),
 ( 1,9, "Plastic+Round"),
-( 1,11, "Plastic+Hexagon"),
-( 1,12, "Plastic+Oval"),
-( 2,13, "HC"),
-( 2,14, "ARC"),
-( 2,15, "Blu-Block"),
-( 2,16, "Daynite"),
-( 2,17, "Daynite + HC"),
-( 2,18, "Daynite + ARC"),
-( 2,19, "Daynote + Blu-Block"),
-( 3,20, "Metal+Square"),
-( 3,21, "Metal+Rectangle"),
-( 3,22, "Metal+Round"),
-( 3,23, "Metal+Hexagon"),
-( 3,24, "Metal+Pilot"),
-( 3,25, "Metal+Oval"),
-( 3,26, "Plastic+Square"),
-( 3,27, "Plastic+Rectangle"),
-( 3,28, "Plastic+Round"),
-( 3,29, "Plastic+Hexagon"),
-( 3,30, "Plastic+Oval"),
-( 4,31, "One day"),
-( 4,32, "Weekly"),
-( 4,33, "Monthly"),
-( 4,34, "Quaterly"),
-( 4,35, "6 Months"),
-( 4,36, "Yearly"),
-( 6,37, "Liquid");
+( 1,10, "Plastic+Hexagon"),
+( 1,11, "Plastic+Oval"),
+( 2,12, "HC"),
+( 2,13, "ARC"),
+( 2,14, "Blu-Block"),
+( 2,15, "Daynite"),
+( 2,16, "Daynite + HC"),
+( 2,17, "Daynite + ARC"),
+( 2,18, "Daynote + Blu-Block"),
+( 3,19, "Metal+Square"),
+( 3,20, "Metal+Rectangle"),
+( 3,21, "Metal+Round"),
+( 3,22, "Metal+Hexagon"),
+( 3,23, "Metal+Pilot"),
+( 3,24, "Metal+Oval"),
+( 3,25, "Plastic+Square"),
+( 3,26, "Plastic+Rectangle"),
+( 3,27, "Plastic+Round"),
+( 3,28, "Plastic+Hexagon"),
+( 3,29, "Plastic+Oval"),
+( 4,30, "One day"),
+( 4,31, "Weekly"),
+( 4,32, "Monthly"),
+( 4,33, "Quaterly"),
+( 4,34, "6 Months"),
+( 4,35, "Yearly"),
+( 6,36, "Liquid");
 
 -- Table 7 : Invoice Table
 
@@ -189,8 +189,6 @@ CREATE TABLE invoice_items (
     ON DELETE CASCADE
 );
 
-
-
 -- Table 9: Additional Details about the Customer
 
 CREATE TABLE additional_customer_details(
@@ -206,3 +204,4 @@ CREATE TABLE additional_customer_details(
 );
 
 CREATE INDEX idx_customer_mobile ON customers_details(mobile);
+
