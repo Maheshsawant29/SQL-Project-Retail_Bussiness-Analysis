@@ -70,34 +70,30 @@ INSERT INTO product_brand
 ( product_id, brand_id, brand_name)
 VALUES 
 ( 1, 1, "Local Brand"),
-( 1, 2, "U Eyewear"),
-( 1, 3, "K & D"),
-( 1, 4, "NOVA"),
-( 1, 5, "Ray Ban"),
-( 1, 6, "IDEE"),
-( 1, 7, "Prada"),
-( 1, 8, "Vogue"),
-( 1, 9, "Police"),
-( 1, 10, "OAKLEY"),
-( 1, 11, "Carrera"),
-( 1, 12, "Tommy Hilfiger"),
-( 1, 13, "Calvin Klien"),
-( 1, 15, "Essilor"),
-( 2, 16, "Essilor"),
-( 2, 17, "NOVA"),
-( 2, 18, "Prime Lens"),
-( 2, 19, "Rode & Stock"),
-( 2, 20, "Bonzer Lens"),
-( 2, 21, "Ziess"),
-( 2, 22, "Crizal Lens"),
-( 3, 23, "Ray Ban"),
-( 3, 24, "Local Brand"),
-( 4, 25, "Bausch + Lomb"),
-( 4, 26, "Acme"),
-( 4, 27, "Eye-art"),
-( 5, 28, "Accessories"),
-( 6, 29, "Renu Fresh"),
-( 6, 30, "Aqua Soft Bio");
+( 1, 2, "K & D"),
+( 1, 3, "NOVA"),
+( 1, 4, "Ray Ban"),
+( 1, 5, "Prada"),
+( 1, 6, "OAKLEY"),
+( 1, 7, "Carrera"),
+( 1, 8, "Tommy Hilfiger"),
+( 1, 9, "Calvin Klien"),
+( 1, 10, "Essilor"),
+( 2, 11, "Essilor"),
+( 2, 12, "NOVA"),
+( 2, 13, "Prime Lens"),
+( 2, 14, "Rode & Stock"),
+( 2, 15, "Bonzer Lens"),
+( 2, 16, "Ziess"),
+( 2, 17, "Crizal Lens"),
+( 3, 18, "Ray Ban"),
+( 3, 19, "Local Brand"),
+( 4, 20, "Bausch + Lomb"),
+( 4, 21, "Acme"),
+( 4, 22, "Eye-art"),
+( 5, 23, "Accessories"),
+( 6, 24, "Renu Fresh"),
+( 6, 25, "Aqua Soft Bio");
 
 -- Table 6: Product Type Table
 
@@ -176,16 +172,12 @@ CREATE TABLE invoice_items (
     unit_selling_price DECIMAL(10,2) NOT NULL,
 	final_product_price DECIMAL(10,2) GENERATED ALWAYS AS (unit_selling_price * quantity) STORED,
     FOREIGN KEY (invoice_id) REFERENCES invoices(invoice_id)
-    ON UPDATE CASCADE
     ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(product_id)
-    ON UPDATE CASCADE
     ON DELETE CASCADE,
     FOREIGN KEY (brand_id) REFERENCES product_brand(brand_id)
-    ON UPDATE CASCADE
     ON DELETE CASCADE,
     FOREIGN KEY (product_type_id) REFERENCES product_type(product_type_id)
-    ON UPDATE CASCADE
     ON DELETE CASCADE
 );
 
@@ -199,9 +191,5 @@ CREATE TABLE additional_customer_details(
     glass_distributor_name VARCHAR(50),
     time_spend_by_customer_in_shop INT,
     FOREIGN KEY(customer_id) REFERENCES customers_details(customer_id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+    ON DELETE CASCADE
 );
-
-CREATE INDEX idx_customer_mobile ON customers_details(mobile);
-
