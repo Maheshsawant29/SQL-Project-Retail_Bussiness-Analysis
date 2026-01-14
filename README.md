@@ -4,7 +4,7 @@ Status: 🚧 Project Work in Progress
 
 👓 Retail Optical Business Intelligence System
 1. Introduction
-This project focuses on building a robust Relational Database Management System (RDBMS) for a Retail Optical Store. The goal is to track the complete customer journey—from the initial walk-in and eye checkup (prescription) to the final purchase (invoice) and post-sale delivery tracking. By bridging the gap between medical records and retail sales, this system provides deep insights into customer behavior, staff efficiency, and product performance.
+This project focuses on building a Relational Database Management System (RDBMS) for a Retail Optical Store. The goal is to track the complete customer journey—from the initial walk-in and eye checkup (prescription) to the final purchase (invoice) and post-sale delivery tracking. By bridging the gap between medical records and retail sales, this system provides deep insights into customer behavior, staff efficiency, and product performance.
 
 2. Database Architecture
 The database, retail_optical_bussiness, consists of 9 interconnected tables designed in 3rd Normal Form (3NF) to ensure data integrity and minimize redundancy.
