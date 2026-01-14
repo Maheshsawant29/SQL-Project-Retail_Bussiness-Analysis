@@ -4,54 +4,78 @@ Status: 🚧 Project Work in Progress
 
 👓 Retail Optical Business Intelligence System
 1. Introduction
-This project focuses on building a Relational Database Management System (RDBMS) for a Retail Optical Store. The goal is to track the complete customer journey from the initial walk-in and eye checkup (prescription) to the final purchase (invoice) and post-sale delivery tracking. By bridging the gap between medical records and retail sales, this system provides deep insights into customer behavior, staff efficiency, and product performance.
+
+This project focuses on designing and implementing a Relational Database Management System (RDBMS) for a retail optical store. The primary objective is to track the complete customer journey from initial walk-in and eye checkup (prescription) to final purchase (invoice) and post-sale delivery tracking. By integrating clinical records with retail sales data, the system enables comprehensive analysis of customer behavior, staff performance, and product-level outcomes.
 
 2. Database Architecture
-The database, retail_optical_bussiness, consists of 9 interconnected tables designed in 3rd Normal Form (3NF) to ensure data integrity and minimize redundancy.
+
+The database, retail_optical_bussiness, consists of nine interconnected tables, designed in Third Normal Form (3NF) to ensure data integrity, eliminate redundancy, and support scalable analytics.
 
 Entity Relationship Summary
-Core Entities: staff and customers_details form the foundation.
 
-Medical Layer: The prescriptions table tracks clinical visits for each customer.
+Core Entities: staff and customers_details form the foundational layer.
 
-Product Layer: A hierarchical structure of products -> product_brand -> product_type allows for granular inventory and sales tracking.
+Medical Layer: The prescriptions table captures clinical visit and eye checkup data.
 
-Sales Layer: invoices and invoice_items capture transaction headers and line-item details.
+Product Layer: A hierarchical structure—products → product_brand → product_type—enables granular inventory and sales analysis.
 
-Operations Layer: additional_customer_details tracks CRM metrics like delivery time and shop floor duration.
+Sales Layer: invoices and invoice_items store transaction-level and line-item details.
 
-3. The Dataset
-The data used in this project is synthetically generated using a custom Python seeding engine.
+Operations Layer: additional_customer_details tracks CRM-related metrics such as delivery timelines and in-store duration.
 
-Scale: Over 35,000+ lines of SQL commands generating 8,000 customers, 8,000 prescriptions, and 5,000 invoices.
+3. About the Dataset
 
-Realism: Utilized the Faker library to generate localized Indian names, contact numbers, and realistic date ranges spanning two years.
+The dataset used in this project is synthetically generated using a custom Python-based data seeding engine.
 
-Integrity: The script was designed to respect all Foreign Key constraints and maintain logical relationships (e.g., ensuring a customer’s visit date precedes their delivery date).
+Scale: Over 35,000+ SQL statements, generating approximately 8,000 customers, 8,000 prescriptions, and 5,000 invoices.
+
+Realism: The Faker library was used to generate localized Indian names, contact numbers, and realistic date ranges spanning two years.
+
+Integrity: All data generation logic respects foreign key constraints and real-world sequencing (e.g., visit dates preceding delivery dates).
 
 4. Analysis Structure & Queries
-The project is organized into modular SQL scripts to address specific business questions:
 
-📂 queries/
-01_exploratory_data_analysis.sql
-02_customer_analysis.sql
-03_sales_revenue_analysis.sql
-04_product_analysis.sql
-05_conversion_funnel.sql
-06_staff_performance.sql
-07_operational_metrics.sql
-08_advanced_analytics.sql
+The analytical workflow is organized into modular SQL scripts, each addressing a specific business objective:
+
+queries/
+├── 01_exploratory_data_analysis.sql
+├── 02_customer_analysis.sql
+├── 03_sales_revenue_analysis.sql
+├── 04_product_analysis.sql
+├── 05_conversion_funnel.sql
+├── 06_staff_performance.sql
+├── 07_operational_metrics.sql
+└── 08_advanced_analytics.sql
+
+
+Exploratory Data Analysis: Data validation, NULL checks, and row-level verification
+
+Customer Analysis: Age demographics and segmentation of new vs. repeated customers
+
+Sales & Revenue Analysis: Monthly revenue trends and payment mode distribution (Cash, UPI, Card)
+
+Product Analysis: Best-selling frame types and top-performing brands (e.g., Ray-Ban, Essilor)
+
+Conversion Funnel: Measuring eye checkups that convert into purchases
+
+Staff Performance: Revenue and conversion-based staff ranking
+
+Operational Metrics: Shop floor efficiency and delivery lead time analysis
+
+Advanced Analytics: RFM (Recency, Frequency, Monetary) analysis and Customer Lifetime Value (CLV)
 
 5. Technology Stack
-Database: MySQL (Relational Database Engine)
 
-Data Engineering: Python (via VS Code)
+Database: MySQL
 
-Libraries: Faker (for synthetic data generation)
+Data Engineering: Python (VS Code)
 
-Version Control: GitHub (Project organization and documentation)
+Libraries: Faker (synthetic data generation)
 
-Interface: MySQL Workbench & CMD (for bulk data migration)
+Version Control: GitHub
+
+Interface: MySQL Workbench and Command Line (CMD) for bulk data operations
 
 6. Disclaimer
-This project is for educational and portfolio purposes only. All names, contact numbers, and transactional data are synthetically generated using the Python Faker library and do not represent any real individuals or businesses. No real-world PII (Personally Identifiable Information) is included
+
+This project is intended solely for educational and portfolio purposes. All names, contact details, and transactional records are synthetically generated using the Faker library and do not correspond to real individuals or businesses. No real-world Personally Identifiable Information (PII) is included.
