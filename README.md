@@ -48,22 +48,6 @@ queries/
 └── 08_advanced_analytics.sql
 
 
-Exploratory Data Analysis: Data validation, NULL checks, and row-level verification
-
-Customer Analysis: Age demographics and segmentation of new vs. repeated customers
-
-Sales & Revenue Analysis: Monthly revenue trends and payment mode distribution (Cash, UPI, Card)
-
-Product Analysis: Best-selling frame types and top-performing brands (e.g., Ray-Ban, Essilor)
-
-Conversion Funnel: Measuring eye checkups that convert into purchases
-
-Staff Performance: Revenue and conversion-based staff ranking
-
-Operational Metrics: Shop floor efficiency and delivery lead time analysis
-
-Advanced Analytics: RFM (Recency, Frequency, Monetary) analysis and Customer Lifetime Value (CLV)
-
 5. Technology Stack
 
 Database: MySQL
