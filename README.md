@@ -1,8 +1,7 @@
-SQL Project : "Retail Optical Bussiness Analysis"
+SQL Project : 👓"Retail Optical Bussiness Analysis"
 <br>
 Status: 🚧 Project Work in Progress
-
-👓 Retail Optical Business Intelligence System
+ 
 1. Introduction
 
 This project focuses on designing and implementing a Relational Database Management System (RDBMS) for a retail optical store. The primary objective is to track the complete customer journey from initial walk-in and eye checkup (prescription) to final purchase (invoice) and post-sale delivery tracking. By integrating clinical records with retail sales data, the system enables comprehensive analysis of customer behavior, staff performance, and product-level outcomes.
