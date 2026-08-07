@@ -1,0 +1,16 @@
+-- Table 4 : Products Table 
+
+CREATE TABLE products (
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
+    product_name VARCHAR(100) NOT NULL
+); 
+
+INSERT INTO products
+( product_id, product_name)
+VALUES 
+( 1, "Frame"),
+( 2, "Glass"),
+( 3, "Sunglass"),
+( 4, "Contact_Lens"),
+( 5, "Accessories"),
+( 6, "Lens Solution");

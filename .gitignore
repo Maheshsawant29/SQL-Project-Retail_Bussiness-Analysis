@@ -1,0 +1,40 @@
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# IntelliJ
+.idea/
+
+# MySQL Workbench Temporary Files
+*.mwb.bak
+
+# Log Files
+*.log
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Excel Temporary Files
+~$*.xlsx
+~$*.xls
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Environment Files
+.env
+
+# Zip Files
+*.zip
+
+# Backup Files
+*.bak
+*.old
