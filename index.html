@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retail Optical Store — SQL Business Analytics | Mahesh Sawant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ LOADER ============ -->
+<div id="loader"><div class="loader-ring"></div></div>
+
+<!-- ============ TOP PROGRESS BAR ============ -->
+<div id="progress-bar"></div>
+
+<!-- ============ NAVBAR ============ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="brand"><span class="brand-mark">RO</span><span class="brand-text">Retail Optical Analytics</span></a>
+    <button id="navToggle" aria-label="menu"><i class="fa-solid fa-bars"></i></button>
+    <div class="nav-links" id="navLinks">
+      <a href="#exec-summary">Executive Summary</a>
+      <a href="#problem">Business Problem</a>
+      <a href="#demographics">Customer Demographics</a>
+      <a href="#lifecycle">Customer Lifecycle Analysis</a>
+      <a href="#top50">Top 50 Customers</a>
+      <a href="#churn">Churn Customers Analysis</a>
+      <a href="#staff">Staff Analysis</a>
+      <a href="#referral">Referrers &amp; Referrals Analysis</a>
+      <a href="#product">Product &amp; Brand Analysis</a>
+      <a href="#recommendations">Strategic Recommendations</a>
+      <a href="#conclusion">Conclusion</a>
+      <div class="mobile-tech-group">
+        <span class="nav-tech-label"><i class="fa-solid fa-code"></i> Technical</span>
+        <a href="#technical-divider">Overview</a>
+        <a href="#dataset">Dataset Overview</a>
+        <a href="#db-design">Database Design</a>
+        <a href="#sql">SQL Queries &amp; Views</a>
+      </div>
+     <button 
+    class="nav-scroll-hint" 
+    id="navScrollNext"
+    type="button"
+    aria-label="Show more navigation sections">
+    <i class="fa-solid fa-chevron-right"></i>
+</button>
+  </div>
+    </div>
+  </div>
+  <div class="nav-inner nav-inner-tech">
+    <div class="nav-links nav-links-tech" id="navLinksTech">
+      <span class="nav-tech-label"><i class="fa-solid fa-code"></i> Technical:</span>
+      <a href="#technical-divider">Overview</a>
+      <a href="#dataset">Dataset Overview</a>
+      <a href="#db-design">Database Design</a>
+      <a href="#sql">SQL Queries &amp; Views</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ FLOATING SIDEBAR ============ -->
+<aside id="sidebar">
+  <ul>
+    <li data-target="hero"><span class="dot"></span><span class="label">Home</span></li>
+    <li data-target="exec-summary"><span class="dot"></span><span class="label">Executive Summary</span></li>
+    <li data-target="problem"><span class="dot"></span><span class="label">Business Problem</span></li>
+    <li data-target="objectives"><span class="dot"></span><span class="label">Objectives</span></li>
+    <li data-target="demographics"><span class="dot"></span><span class="label">Demographics</span></li>
+    <li data-target="lifecycle"><span class="dot"></span><span class="label">Lifecycle</span></li>
+    <li data-target="top50"><span class="dot"></span><span class="label">Top Customers</span></li>
+    <li data-target="churn"><span class="dot"></span><span class="label">Churn Analysis</span></li>
+    <li data-target="staff"><span class="dot"></span><span class="label">Staff Analysis</span></li>
+    <li data-target="referral"><span class="dot"></span><span class="label">Referral Analysis</span></li>
+    <li data-target="product"><span class="dot"></span><span class="label">Product Analysis</span></li>
+    <li data-target="insights"><span class="dot"></span><span class="label">Business Insights</span></li>
+    <li data-target="recommendations"><span class="dot"></span><span class="label">Strategy</span></li>
+    <li data-target="conclusion"><span class="dot"></span><span class="label">Conclusion</span></li>
+    <li data-target="technical-divider"><span class="dot"></span><span class="label">Technical</span></li>
+    <li data-target="dataset"><span class="dot"></span><span class="label">Dataset</span></li>
+    <li data-target="db-design"><span class="dot"></span><span class="label">Database Design</span></li>
+    <li data-target="sql"><span class="dot"></span><span class="label">SQL Queries &amp; Views</span></li>
+  </ul>
+</aside>
+
+<!-- ============ HERO ============ -->
+<header id="hero">
+  <div class="hero-bg">
+    <canvas id="heroCanvas"></canvas>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="hero-content">
+    <p class="eyebrow reveal">SQL · BUSINESS INTELLIGENCE · CASE STUDY</p>
+    <h1 class="reveal">Retail Optical Store<br><span class="gradient-text">Business Analytics</span></h1>
+    <p class="hero-sub reveal">A comprehensive RDBMS-driven analysis of customer journeys, staff performance, product &amp; brand outcomes, and referrer impact — turning 8,000+ transactional records into a strategic growth roadmap.</p>
+    <div class="hero-btns reveal">
+      <a href="#exec-summary" class="btn btn-primary"><i class="fa-solid fa-chart-line"></i> View Dashboard</a>
+      <a href="#problem" class="btn btn-outline"><i class="fa-solid fa-book-open"></i> Problem Statement</a>
+      <a href="#sql" class="btn btn-outline"><i class="fa-solid fa-database"></i> View SQL Queries</a>
+      <a href="https://github.com/Maheshsawant29" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-github"></i> GitHub Repository</a>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="hstat"><span class="count" data-count="8000">0</span><small>Walk-in Customers</small></div>
+      <div class="hstat"><span class="count" data-count="46811413" data-currency="1">0</span><small>Total Revenue (₹)</small></div>
+      <div class="hstat"><span class="count" data-count="9">0</span><small>Interconnected Tables</small></div>
+      <div class="hstat"><span class="count" data-count="20">0</span><small>Staff Members Analyzed</small></div>
+    </div>
+  </div>
+  <div class="scroll-cue"><i class="fa-solid fa-chevron-down"></i></div>
+</header>
+
+<main>
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<section id="exec-summary" class="section">
+  <div class="container">
+    <p class="section-tag reveal">01 · EXECUTIVE SUMMARY</p>
+    <h2 class="reveal">A Complete Consulting-Grade Business Diagnostic</h2>
+    <p class="section-lead reveal">This project transforms a simulated Retail Optical Store's raw transactional database into an end-to-end analytics engine — covering customer lifecycle, referral economics, churn risk, staff performance, and product/brand strategy — to guide data-driven management decisions.</p>
+
+    <div class="grid-6 reveal">
+      <div class="exec-card">
+        <i class="fa-solid fa-bullseye"></i>
+        <h4>Business Problem</h4>
+        <p>Management lacked visibility into where customers convert, disengage, and churn across the full lifecycle — making it impossible to prioritize retention, referral, or staffing investment with confidence.</p>
+      </div>
+      <div class="exec-card">
+        <i class="fa-solid fa-database"></i>
+        <h4>Data Size</h4>
+        <p>9 interconnected relational tables — Customers, Invoices, Invoice Items, Products, Product Types, Brands, Staff, Prescriptions &amp; Referrals — covering 8,000 walk-in visitors and 3,721 completed transactions.</p>
+      </div>
+      <div class="exec-card">
+        <i class="fa-solid fa-toolbox"></i>
+        <h4>Tools Used</h4>
+        <p>MySQL (advanced SQL: CTEs, Views, Window Functions, ROLLUP), Advanced Excel (Pivot Tables &amp; Dashboards), GitHub for project/version management.</p>
+      </div>
+      <div class="exec-card">
+        <i class="fa-solid fa-gauge-high"></i>
+        <h4>Key KPIs</h4>
+        <p>46.51% conversion rate · 28.25% retention rate · 6.32% blended churn · 10.18% referral revenue contribution · ₹4.68 Cr total revenue.</p>
+      </div>
+      <div class="exec-card">
+        <i class="fa-solid fa-lightbulb"></i>
+        <h4>Major Findings</h4>
+        <p>Senior customers (60+) dominate every lifecycle stage; repeat customers are just 28% of buyers yet generate 53% of revenue; first-time buyer churn dwarfs repeat-customer churn.</p>
+      </div>
+      <div class="exec-card">
+        <i class="fa-solid fa-sack-dollar"></i>
+        <h4>Business Value</h4>
+        <p>Identifies ₹47.8L of at-risk churned revenue, a zero-cost referral channel worth ₹47.6L, and a high-margin Progressive Lens opportunity — providing a prioritized roadmap for revenue growth.</p>
+      </div>
+    </div>
+
+    <div class="kpi-strip reveal">
+      <div class="kpi"><span class="count" data-count="46.51" data-decimal="2">0</span><small>% Conversion Rate</small></div>
+      <div class="kpi"><span class="count" data-count="28.25" data-decimal="2">0</span><small>% Retention Rate</small></div>
+      <div class="kpi"><span class="count" data-count="10.18" data-decimal="2">0</span><small>% Revenue via Referrals</small></div>
+      <div class="kpi"><span class="count" data-count="53" data-decimal="0">0</span><small>% Revenue from just 28% of Buyers</small></div>
+      <div class="kpi"><span class="count" data-count="1.48" data-decimal="2">0</span><small>Cr ₹ Revenue — Glasses</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUSINESS PROBLEM ============ -->
+<section id="problem" class="section alt">
+  <div class="container">
+    <p class="section-tag reveal">02 · BUSINESS PROBLEM</p>
+    <h2 class="reveal">Why Customer Lifecycle Analysis Matters</h2>
+    <div class="two-col reveal">
+      <div>
+        <p>Although the store receives a significant number of walk-in visitors, not every visitor becomes a buyer, not every buyer returns for future purchases, and some loyal customers eventually stop visiting altogether. Without understanding where customers drop off during their journey, management cannot accurately identify weaknesses in customer acquisition, sales conversion, retention, or staff performance.</p>
+        <p>The success of a retail business is not determined solely by the number of customers visiting the store, but by how effectively those customers progress through each stage of the customer lifecycle. This project delivers a comprehensive customer lifecycle analysis to identify bottlenecks, improve retention, reduce churn, and maximize customer lifetime value.</p>
+      </div>
+      <div class="funnel-visual">
+        <div class="funnel-step" style="width:100%"><span>Stage 1</span> Walk-in Visitors — 8,000</div>
+        <div class="funnel-step" style="width:88%"><span>Stage 2</span> Window Shoppers — 4,279</div>
+        <div class="funnel-step" style="width:75%"><span>Stage 3</span> Actual Buyers — 3,721</div>
+        <div class="funnel-step" style="width:55%"><span>Stage 4</span> Repeated Customers — 1,051</div>
+        <div class="funnel-step" style="width:35%"><span>Stage 5</span> Churned Customers — 1,615</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OBJECTIVES ============ -->
+<section id="objectives" class="section">
+  <div class="container">
+    <p class="section-tag reveal">03 · PROJECT OBJECTIVES</p>
+    <h2 class="reveal">Key Business Questions This Project Answers</h2>
+    <div class="obj-grid reveal">
+      <div class="obj-item"><i class="fa-solid fa-user-group"></i>Who are the most valuable customers?</div>
+      <div class="obj-item"><i class="fa-solid fa-chart-pie"></i>Which age groups generate the highest revenue?</div>
+      <div class="obj-item"><i class="fa-solid fa-repeat"></i>How effectively are customers converted into repeat buyers?</div>
+      <div class="obj-item"><i class="fa-solid fa-crown"></i>Which segments contribute the highest lifetime value?</div>
+      <div class="obj-item"><i class="fa-solid fa-share-nodes"></i>How effective are referral customers?</div>
+      <div class="obj-item"><i class="fa-solid fa-user-slash"></i>What factors contribute to customer churn?</div>
+      <div class="obj-item"><i class="fa-solid fa-id-badge"></i>Which staff members perform most consistently?</div>
+      <div class="obj-item"><i class="fa-solid fa-glasses"></i>Which products &amp; brands generate maximum revenue?</div>
+      <div class="obj-item"><i class="fa-solid fa-route"></i>What strategic actions improve long-term profitability?</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CUSTOMER ANALYSIS INTRO ============ -->
+<section id="customer" class="section alt">
+  <div class="container">
+    <p class="section-tag reveal">04 · CUSTOMER ANALYSIS</p>
+    <h2 class="reveal">Who Our Customers Are, and How They Move Through the Lifecycle</h2>
+    <p class="section-lead reveal">Customer analysis begins with demographics — who our customers are — then follows their full lifecycle from walk-in visitor to buyer, repeat customer and, in some cases, churn.</p>
+
+    <!-- DEMOGRAPHICS DASHBOARD -->
+    <div id="demographics" class="dashboard-block reveal">
+      <div class="db-header"><i class="fa-solid fa-chart-column"></i><h3>Dashboard 1 — Customer Demographics</h3></div>
+      <div class="db-objective"><b>Business Objective:</b> Establish who the customers are — age, vision type, payment preference, and acquisition channel — as the foundation for every downstream strategy.</div>
+
+      <div class="kpi-row">
+        <div class="kpi-box"><span class="count" data-count="36.5" data-decimal="1">0</span><small>% Senior Customers</small></div>
+        <div class="kpi-box"><span class="count" data-count="89.82" data-decimal="2">0</span><small>% Revenue from New Customers</small></div>
+        <div class="kpi-box"><span class="count" data-count="10.18" data-decimal="2">0</span><small>% Revenue from Referrals</small></div>
+        <div class="kpi-box"><span class="count" data-count="9373" data-currency="1">0</span><small>Avg Order Value — Cash</small></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card"><canvas id="chartVisionType"></canvas></div>
+        <div class="chart-card"><canvas id="chartPayment"></canvas></div>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-card"><canvas id="chartVisionRevenue"></canvas></div>
+        <div class="chart-card"><canvas id="chartNewReferral"></canvas></div>
+      </div>
+
+      <div class="insight-list">
+        <p>• Progressive lenses generate the highest revenue by vision type (₹121.06L, 26% of vision-type revenue) despite near-identical customer volume to the other three types — confirming Progressive as the highest-value prescription category.</p>
+        <p>• New customers contribute 90% of revenue (₹420.47L) versus 10% from Referrals (₹47.64L) — but referral customers convert at a marginally higher rate (47.04% vs 46.45%), making referral a small but efficient, zero-acquisition-cost channel.</p>
+        <p>• Vision-type demand is almost perfectly balanced: Bifocal 25.5%, Near 24.9%, Distance 24.9%, Progressive 24.8% — the store must maintain testing/inventory capability across all categories.</p>
+        <p>• Payment method usage is well diversified: Cash 34.6% / Card 33.5% / UPI 31.9% of revenue, with nearly identical average order values (~₹9,200–9,500) — payment choice does not influence spend.</p>
+        <p>• New customers drive 89.82% of revenue vs 10.18% from Referrals — but referral customers convert to buyers at a similar or better rate (47% vs 46.45% for regular customers).</p>
+        <p>• Progressive lens customers generate the highest revenue per vision-type (₹1.21 Cr) despite equal customer volume — reflecting premium pricing and margins.</p>
+      </div>
+      <div class="reco-box"><i class="fa-solid fa-flag-checkered"></i><div><b>Strategic Recommendation:</b> Invest in high-precision digital eye examination equipment and PD-measurement tools to protect Progressive lens accuracy — since senior customers (the largest segment) disproportionately need Progressive/Bifocal corrections that recur every 2–3 years.</div></div>
+      <div class="impact-box"><i class="fa-solid fa-arrow-trend-up"></i><div><b>Business Impact:</b> Precision in prescription delivery directly protects retention and referral generation among the highest-value senior cohort.</div></div>
+    </div>
+
+    <!-- LIFECYCLE DASHBOARD -->
+    <div id="lifecycle" class="dashboard-block reveal">
+      <div class="db-header"><i class="fa-solid fa-diagram-project"></i><h3>Dashboard 2 — Customer Lifecycle Overview</h3></div>
+      <div class="db-objective"><b>Business Objective:</b> Track how 8,000 walk-in visitors funnel down to buyers, repeat customers, churned customers and referrers — exposing the biggest points of leakage.</div>
+
+      <div class="kpi-row">
+        <div class="kpi-box"><span class="count" data-count="8000">0</span><small>Walk-in Visitors</small></div>
+        <div class="kpi-box"><span class="count" data-count="4279">0</span><small>Window Shoppers</small></div>
+        <div class="kpi-box"><span class="count" data-count="3721">0</span><small>Buyer Customers</small></div>
+        <div class="kpi-box"><span class="count" data-count="1051">0</span><small>Repeated Customers</small></div>
+        <div class="kpi-box"><span class="count" data-count="235">0</span><small>Churned (of repeat)</small></div>
+        <div class="kpi-box"><span class="count" data-count="721">0</span><small>Referrers</small></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card"><canvas id="chartFunnel"></canvas></div>
+        <div class="chart-card"><canvas id="chartRevenueSplit"></canvas></div>
+      </div>
+
+      <div class="insight-list">
+        <p>• The store attracted 8,000 walk-in visitors, of which 3,721 completed a purchase — an overall conversion rate of <b>46.51%</b>. 4,279 visitors (53.49%) left without buying, representing a major conversion-recovery opportunity.</p>
+        <p>• Among 3,721 buyers, only 1,051 (28.25%) returned for repeat purchases — yet this 28% contributes approximately <b>53% of total revenue</b>, while one-time buyers contribute the remaining 47%.</p>
+        <p>• 235 of the 3,721 buyers churned (180+ days inactive), a 6.32% blended churn rate — relatively low, but representing recoverable revenue via re-engagement.</p>
+        <p>• 721 customers (9.01%) acted as referrers, generating 810 referrals and 381 referral buyers (47.04% referral conversion) — a valuable zero-cost acquisition channel.</p>
+      </div>
+      <div class="reco-box"><i class="fa-solid fa-flag-checkered"></i><div><b>Strategic Recommendation:</b> Prioritize converting window shoppers via improved in-store consultation and CRM follow-up, and build structured retention campaigns for the 22–28% of buyers who become repeat customers, since they disproportionately drive revenue.</div></div>
+      <div class="impact-box"><i class="fa-solid fa-arrow-trend-up"></i><div><b>Business Impact:</b> Even a modest lift in conversion or retention compounds directly into revenue, since repeat customers already generate ~2x their population share in revenue.</div></div>
+    </div>
+
+    <!-- AGE GROUP LIFECYCLE DASHBOARD -->
+    <div class="dashboard-block reveal">
+      <div class="db-header"><i class="fa-solid fa-people-group"></i><h3>Dashboard 3 — Lifecycle by Age Group</h3></div>
+      <div class="db-objective"><b>Business Objective:</b> Evaluate visitors → buyers → repeat → churn → referrers, segmented by age, to find where value concentrates and where it leaks.</div>
+      <div class="chart-grid">
+        <div class="chart-card"><canvas id="chartAgeFunnel"></canvas></div>
+        <div class="chart-card"><canvas id="chartAgeConversion"></canvas></div>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table" id="ageTable">
+          <thead><tr><th>Age Group</th><th>Visited</th><th>Buyers</th><th>Conv %</th><th>Repeated</th><th>Retention %</th><th>Churn</th><th>Churn %</th><th>Revenue (₹)</th><th>Share</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="insight-list">
+        <p>• Senior Customers (60+) lead <b>every</b> stage of the lifecycle: highest visitors (2,920), buyers (1,373), revenue (₹1.74 Cr / 37.26%), repeat customers (392) and referrers (261) — but also the highest churn volume (85).</p>
+        <p>• Teenagers are the smallest segment (229 visitors) yet post the highest retention rate (33.64%) and near-best conversion (48.03%) — proof of strong "quality" despite weak "quantity."</p>
+        <p>• 20s–50s form a stable, evenly distributed base contributing 13–17% of revenue each — reducing concentration risk.</p>
+      </div>
+      <div class="reco-box"><i class="fa-solid fa-flag-checkered"></i><div><b>Strategic Recommendation:</b> Protect and retain the Senior segment through prescription-renewal reminders and personalized service; simultaneously invest in youth-oriented digital marketing to convert Teenagers' strong conversion/retention profile into greater volume.</div></div>
+      <div class="impact-box"><i class="fa-solid fa-arrow-trend-up"></i><div><b>Business Impact:</b> Reducing Senior churn protects the single largest revenue pool; scaling Teen acquisition builds a long-duration future customer base at low incremental cost.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOP 50 CUSTOMERS ============ -->
+<section id="top50" class="section alt">
+  <div class="container">
+    <div class="dashboard-block reveal">
+      <div class="db-header"><i class="fa-solid fa-medal"></i><h3>Dashboard 4 — Top 50 Customer Analysis</h3></div>
+      <div class="db-objective"><b>Business Objective:</b> Identify the store's highest-value customers, quantify their revenue concentration, and flag any who are now at risk of churn.</div>
+
+      <div class="kpi-row">
+        <div class="kpi-box"><span class="count" data-count="4.64" data-decimal="2">0</span><small>% of Total Revenue from Top 50</small></div>
+        <div class="kpi-box"><span class="count" data-count="100" data-decimal="0">0</span><small>% of Top 50 are Repeat Buyers</small></div>
+        <div class="kpi-box"><span class="count" data-count="56508" data-currency="1">0</span><small>Highest Single-Customer Revenue</small></div>
+        <div class="kpi-box"><span class="count" data-count="16">0</span><small>of Top 50 are Senior Customers</small></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card"><canvas id="chartTop50Age"></canvas></div>
+        <div class="chart-card"><canvas id="chartLoyaltyBreakdown"></canvas></div>
+      </div>
+
+      <div class="insight-list">
+        <p>• The Top 50 customers contribute ₹23.71 lakh (4.64%) of total revenue — a highly concentrated, highly valuable segment out of 3,721 total buyers.</p>
+        <p>• Senior Customers dominate the Top 50 (16 of 50), consistent with their dominance across every other lifecycle metric.</p>
+        <p>• 100% of the Top 50 and Top 100 revenue-generating customers are repeat customers; even the Top 400 stays above 90% repeat — loyalty, not first-purchase size, predicts lifetime value.</p>
+        <p>• Several Top-50 customers have not purchased in 180–500+ days (e.g. Samar Parmer — 506 days inactive despite ₹56,508 lifetime revenue) — high-value churn risk requiring immediate re-engagement.</p>
+      </div>
+      <div class="reco-box"><i class="fa-solid fa-flag-checkered"></i><div><b>Strategic Recommendation:</b> Establish a dedicated High-Value Customer Management Program — priority scheduling, personalized recommendations, and proactive prescription-renewal outreach for the Top 50, especially those crossing the 180-day inactivity threshold.</div></div>
+      <div class="impact-box"><i class="fa-solid fa-arrow-trend-up"></i><div><b>Business Impact:</b> Protecting even a handful of Top-50 accounts preserves disproportionate revenue relative to the effort required — the highest-ROI retention target in the business.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHURN ANALYSIS ============ -->
+<section id="churn" class="section">
+  <div class="container">
+    <p class="section-tag reveal">06 · CHURN ANALYSIS</p>
+    <h2 class="reveal">Where the Business Is Losing Customers</h2>
+    <p class="section-lead reveal">Acquiring a new customer is far more expensive than retaining an existing one. This module isolates exactly where, why, and how much revenue the business is losing.</p>
+
+    <div class="dashboard-block reveal">
+      <div class="db-header"><i class="fa-solid fa-user-slash"></i><h3>Dashboard 5 — Churn Overview: First-Time vs Repeat Buyers</h3></div>
+      <div class="db-objective"><b>Business Objective:</b> Separate churn among first-time buyers from churn among proven repeat customers, since the business risk of each is entirely different.</div>
+
+      <div class="kpi-row">
+        <div class="kpi-box"><span class="count" data-count="51.69" data-decimal="2">0</span><small>% First-Time Buyer Churn</small></div>
+        <div class="kpi-box"><span class="count" data-count="22.36" data-decimal="2">0</span><small>% Repeat Customer Churn</small></div>
+        <div class="kpi-box"><span class="count" data-count="4779880" data-currency="1">0</span><small>Revenue at Risk (₹)</small></div>
+        <div class="kpi-box"><span class="count" data-count="239.6" data-decimal="1">0</span><small>Avg Days Since Last Visit</small></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card"><canvas id="chartChurnType"></canvas></div>
+        <div class="chart-card"><canvas id="chartChurnAge"></canvas></div>
+      </div>
+
+      <div class="insight-list">
+        <p>• Out of 3,721 buyers, 1,615 have churned overall (43.4% using the correct unweighted rate) — 1,380 (85%) are first-time buyers who never returned, and only 235 (15%) are lapsed repeat customers.</p>
+        <p>• First-time buyer churn (51.69%) is more than double repeat customer churn (22.36%) — the biggest leakage happens immediately after the first purchase, not after years of loyalty.</p>
+        <p>• Repeat customer churn is proportionally smaller but far costlier: repeat customers generate 53% of revenue, so losing even 22.36% of them is a disproportionate financial hit.</p>
+        <p>• Senior Customers post the highest churn volume in both categories (504 first-time + 85 repeat) — but this reflects their much larger population, not weaker loyalty; their repeat-churn rate (21.68%) is close to the overall average.</p>
+        <p>• Churn is evenly spread across vision types (Bifocal 47, Distance 65, Near 65, Progressive 58 repeat-churners) — no single prescription category drives disengagement.</p>
+        <p>• Naksh Gandhi, Pratyush Kata and Anita Vala carry the highest churned-customer counts (16, 15, 15 respectively) among staff, worth reviewing for follow-up quality.</p>
+        <p>• 235 churned customers generated ₹47.8 lakh (10.21% of total revenue) historically — a clearly quantified, recoverable revenue pool.</p>
+      </div>
+      <div class="reco-box"><i class="fa-solid fa-flag-checkered"></i>
+        <div><b>Strategic Recommendations:</b>
+          <ul>
+            <li>Redesign the post-first-purchase journey: follow-up calls/WhatsApp, satisfaction surveys, loyalty enrollment immediately after purchase #1.</li>
+            <li>Build a 90–180 day "At Risk" monitoring workflow to intercept repeat customers before they fully churn (customers like Leela Ghosh at 25 days, or dozens sitting at 170–180 days, are still recoverable).</li>
+            <li>Run prescription-renewal reminder campaigns every 2–3 years targeted at Senior customers, whose natural presbyopia progression creates recurring demand.</li>
+            <li>Prioritize outreach to high-value churned customers first (e.g. Vedant Saxena — ₹47,956 lifetime revenue, 506 days inactive).</li>
+          </ul>
+        </div>
+      </div>
+      <div class="impact-box"><i class="fa-solid fa-arrow-trend-up"></i><div><b>Business Impact:</b> Converting even a modest share of first-time buyers into a second purchase compounds directly into the high-value repeat-customer pool that already drives 53% of revenue.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STAFF ANALYSIS ============ -->
+<section id="staff" class="section">
+  <div class="container">
+    <p class="section-tag reveal">07 · STAFF ANALYSIS</p>
+    <h2 class="reveal">Is the Business Overly Dependent on Individual Performers?</h2>
+
+    <div class="dashboard-block reveal">
+      <div class="db-header"><i class="fa-solid fa-id-badge"></i><h3>Dashboard 6 — Staff Performance Scorecard</h3></div>
+      <div class="db-objective"><b>Business Objective:</b> Evaluate 20 staff members across revenue contribution, conversion rate, customer loyalty and product portfolio balance to determine whether performance gaps exist.</div>
+
+      <div class="kpi-row">
+        <div class="kpi-box"><span class="count" data-count="26.82" data-decimal="2">0</span><small>Highest Revenue — Gautam C. (₹L)</small></div>
+        <div class="kpi-box"><span class="count" data-count="50.52" data-decimal="2">0</span><small>% Best Conversion — Tara Swamy</small></div>
+        <div class="kpi-box"><span class="count" data-count="33.70" data-decimal="2">0</span><small>% Best Loyalty — Utkarsh Hayre</small></div>
+        <div class="kpi-box"><span class="count" data-count="13784" data-currency="1">0</span><small>Highest Revenue/Customer (₹)</small></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card"><canvas id="chartStaffRevenue"></canvas></div>
+        <div class="chart-card"><canvas id="chartStaffConversion"></canvas></div>
+      </div>
+
+      <div class="insight-list">
+        <p>• Revenue contribution is nearly flat across all 20 staff (4.6%–5.7% each, ₹18.4L–₹26.8L) — no single employee dominates, reducing key-person risk.</p>
+        <p>• Conversion rate ranges narrowly from 39.68% (Neelima Sibal) to 50.52% (Tara Swamy) — a real but modest spread.</p>
+        <p>• Loyalty conversion (share of assigned customers who become repeat buyers) ranges 23.15%–33.70% — Utkarsh Hayre, Neha Lalla and Neel Varty lead in building long-term relationships.</p>
+        <p>• Every staff member sells a balanced product mix (Frame, Glass, Sunglass, Contact Lens, Lens Solution) — no employee is overly reliant on one category.</p>
+        <p>• Revenue-per-customer efficiency also clusters tightly (₹11,993–₹13,784), confirming performance is standardized rather than star-driven.</p>
+      </div>
+      <div class="reco-box"><i class="fa-solid fa-flag-checkered"></i><div><b>Strategic Recommendation:</b> Maintain standardized training and service practices; rather than restructuring staff, redirect improvement effort toward customer acquisition, CRM and referral programs — the areas with the largest untapped upside.</div></div>
+      <div class="impact-box"><i class="fa-solid fa-arrow-trend-up"></i><div><b>Business Impact:</b> A consistently performing workforce means growth investment is best spent on demand-side levers (marketing, retention, referrals) rather than staff restructuring.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REFERRAL ANALYSIS ============ -->
+<section id="referral" class="section alt">
+  <div class="container">
+    <p class="section-tag reveal">08 · REFERRAL ANALYSIS</p>
+    <h2 class="reveal">The Zero-Cost Growth Channel</h2>
+
+    <div class="dashboard-block reveal">
+      <div class="db-header"><i class="fa-solid fa-share-nodes"></i><h3>Dashboard 7 — Referrer &amp; Referral Performance</h3></div>
+      <div class="db-objective"><b>Business Objective:</b> Quantify how much of the business's growth comes from organic word-of-mouth, who drives it, and how it should be nurtured.</div>
+
+      <div class="kpi-row">
+        <div class="kpi-box"><span class="count" data-count="721">0</span><small>Referrers (9.01% of visitors)</small></div>
+        <div class="kpi-box"><span class="count" data-count="810">0</span><small>Referrals Generated</small></div>
+        <div class="kpi-box"><span class="count" data-count="47.04" data-decimal="2">0</span><small>% Referral Conversion Rate</small></div>
+        <div class="kpi-box"><span class="count" data-count="4763973" data-currency="1">0</span><small>Revenue via Referrals (₹)</small></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card"><canvas id="chartReferralAge"></canvas></div>
+        <div class="chart-card"><canvas id="chartReferrerType"></canvas></div>
+      </div>
+
+      <div class="insight-list">
+        <p>• 721 customers (9.01%) acted as referrers, generating 810 referred visitors, of which 381 became buyers — a 47.04% referral conversion rate, nearly identical to the store's overall 46.51% conversion rate.</p>
+        <p>• Referral customers contributed ₹47.64 lakh — 10.18% of total revenue — from only ~10% of the customer base, at effectively zero marketing cost.</p>
+        <p>• <b>Surprising finding:</b> Non-buyer referrers (388, 48.85% conversion, ₹26.5L generated) perform almost identically to buyer referrers (333, 44.92% conversion, ₹21.1L generated) — advocacy is driven by trust and consultation experience, not purchase status.</p>
+        <p>• Senior Customers (60+) are the strongest referral engine across every metric: most referrers (258), most referrals given (288), highest referral revenue (₹18.4L / 39%), and they are also the most common recipients of referrals from every other age group — the central node of the referral network.</p>
+        <p>• Teenagers refer the fewest people (17 referrers) but post the highest referral-to-buyer conversion (~59%) and highest referral retention (~35.7%) — an underpenetrated, high-quality growth channel.</p>
+        <p>• Referral retention (29.66%) lags overall retention (28.08% new) only slightly, but still leaves room for improvement — only 113 of 381 referral buyers returned for a second purchase.</p>
+      </div>
+      <div class="reco-box"><i class="fa-solid fa-flag-checkered"></i>
+        <div><b>Strategic Recommendations:</b>
+          <ul>
+            <li>Build a structured referral rewards program — the current 9% referrer rate could realistically expand to 15–20% with formal incentives.</li>
+            <li>Launch family referral campaigns specifically targeting Senior customers, who are both top referrers and the most-referred-to demographic.</li>
+            <li>Investigate why non-buyers refer at such a high rate via customer feedback — likely signals strong consultation experience independent of purchase.</li>
+            <li>Target school/college outreach and social campaigns to grow the small but highly efficient Teenage referral segment.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="impact-box"><i class="fa-solid fa-arrow-trend-up"></i><div><b>Business Impact:</b> Referrals already deliver a ~10% revenue channel with no ad spend; scaling referrer participation is the single most cost-efficient growth lever available to the business.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCT ANALYSIS ============ -->
+<section id="product" class="section alt">
+  <div class="container">
+    <p class="section-tag reveal">09 · PRODUCT &amp; BRAND ANALYSIS</p>
+    <h2 class="reveal">What Customers Are Actually Buying</h2>
+
+    <div class="dashboard-block reveal">
+      <div class="db-header"><i class="fa-solid fa-glasses"></i><h3>Dashboard 8 — Product Category Performance</h3></div>
+      <div class="db-objective"><b>Business Objective:</b> Identify which product categories drive revenue and volume, and where cross-sell &amp; churn-recovery opportunities exist.</div>
+
+      <div class="kpi-row">
+        <div class="kpi-box"><span class="count" data-count="5">0</span><small>Product Categories</small></div>
+        <div class="kpi-box"><span class="count" data-count="12010">0</span><small>Total Units Sold</small></div>
+        <div class="kpi-box"><span class="count" data-count="4.51" data-decimal="2">0</span><small>Cr ₹ Total Product Revenue</small></div>
+        <div class="kpi-box"><span class="count" data-count="33" data-decimal="0">0</span><small>% Revenue Share — Glasses</small></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card"><canvas id="chartProductRevenue"></canvas></div>
+        <div class="chart-card"><canvas id="chartProductQty"></canvas></div>
+      </div>
+
+      <div class="insight-list">
+        <p>• <b>Glasses are the flagship category:</b> 3,980 units sold and ₹1.48 Cr revenue — 33% of total product revenue, nearly double any other category. Old Age customers are the largest glass buyers, aligning with their overall dominance.</p>
+        <p>• The remaining four categories (Sunglasses, Lens Solution, Frame, Contact Lens) are tightly balanced at ₹73.8L–₹77.9L each — no dangerous over-reliance on any secondary category.</p>
+        <p>• Glass-buyer churn represents ~₹15.6 lakh of at-risk historical revenue — the single largest churn exposure by product.</p>
+        <p>• Many customers replace lenses while keeping old frames — an untapped cross-sell opportunity, especially since frames carry 100–200% retail margins.</p>
+        <p>• Progressive lenses, while equal in volume to other vision types, generate the highest revenue (₹1.21 Cr) due to premium pricing and complexity.</p>
+      </div>
+      <div class="reco-box"><i class="fa-solid fa-flag-checkered"></i>
+        <div><b>Strategic Recommendations:</b>
+          <ul>
+            <li>Recommend new premium frames at every lens-replacement visit to lift average order value.</li>
+            <li>Bundle Lens Solutions with every eyewear purchase — minimal selling effort, direct AOV lift.</li>
+            <li>Launch reminder campaigns targeted at lapsed Glass buyers specifically, given their outsized revenue-at-risk.</li>
+            <li>Expand Progressive lens consultation capability given its superior margin profile.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="impact-box"><i class="fa-solid fa-arrow-trend-up"></i><div><b>Business Impact:</b> Cross-selling frames and lens solutions can meaningfully lift average order value with minimal incremental effort, while protecting the flagship Glasses revenue line from churn.</div></div>
+    </div>
+
+    <div class="dashboard-block reveal">
+      <div class="db-header"><i class="fa-solid fa-tags"></i><h3>Dashboard 9 — Brand Portfolio Analysis</h3></div>
+      <div class="db-objective"><b>Business Objective:</b> Determine whether the business is overly dependent on any single brand/supplier, and where local vs premium brands compete.</div>
+
+      <div class="kpi-row">
+        <div class="kpi-box"><span class="count" data-count="25">0</span><small>Total Brands</small></div>
+        <div class="kpi-box"><span class="count" data-count="201">0</span><small>Product Variants</small></div>
+        <div class="kpi-box"><span class="count" data-count="1021">0</span><small>Units — Local Sunglass Brand</small></div>
+        <div class="kpi-box"><span class="count" data-count="1019">0</span><small>Units — Ray-Ban</small></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card"><canvas id="chartBrandFrame"></canvas></div>
+        <div class="chart-card"><canvas id="chartBrandSunglass"></canvas></div>
+      </div>
+
+      <div class="insight-list">
+        <p>• Frame sales are healthily distributed across Calvin Klein, Local Brand, Essilor, K&amp;D and Prada (177–220 units each) — no single label dominates.</p>
+        <p>• Glass lens brands (Essilor, Crizal, Prime, Zeiss, NOVA, Bonzer, Rode &amp; Stock) show near-identical demand (550–586 units) — customers trust multiple suppliers equally.</p>
+        <p>• <b>Local Brand sunglasses perform almost identically to Ray-Ban</b> (1,021 vs 1,019 units; ₹38.55L vs ₹38.25L revenue) — proving customers embrace affordable alternatives when quality meets expectations.</p>
+        <p>• Contact lens brands (Acme, Bausch+Lomb, Eye-Art) and Lens Solution brands (Aqua Soft Bio, Renu Fresh) show stable, comparable demand across the board.</p>
+      </div>
+      <div class="reco-box"><i class="fa-solid fa-flag-checkered"></i><div><b>Strategic Recommendation:</b> Continue promoting high-margin local brands alongside premium international brands to serve multiple price segments while reducing single-supplier procurement risk.</div></div>
+      <div class="impact-box"><i class="fa-solid fa-arrow-trend-up"></i><div><b>Business Impact:</b> A diversified brand portfolio improves margin flexibility and insulates the business from any single supplier disruption.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUSINESS INSIGHTS ============ -->
+<section id="insights" class="section">
+  <div class="container">
+    <p class="section-tag reveal">10 · BUSINESS INSIGHTS</p>
+    <h2 class="reveal">The Six Insights That Matter Most</h2>
+    <div class="insight-cards reveal">
+      <div class="insight-card">
+        <i class="fa-solid fa-user-tie"></i>
+        <h4>Senior Customers Are the Core Revenue Engine</h4>
+        <p>Customers 60+ lead every lifecycle metric — volume, revenue, repeat purchases, referrals — making them the single highest-priority segment to protect.</p>
+        <span class="reco-tag">Recommendation: Personalized retention &amp; prescription-renewal programs</span>
+      </div>
+      <div class="insight-card">
+        <i class="fa-solid fa-repeat"></i>
+        <h4>Repeat Customers Generate Over Half of Revenue</h4>
+        <p>Just 28% of buyers who return generate ~53% of total revenue — long-term loyalty outweighs continuous new-customer acquisition.</p>
+        <span class="reco-tag">Recommendation: Loyalty programs &amp; annual check-up reminders</span>
+      </div>
+      <div class="insight-card">
+        <i class="fa-solid fa-share-nodes"></i>
+        <h4>Referral Customers Deliver Low-Cost Growth</h4>
+        <p>~10% of buyers arrive via referral yet contribute ~10% of revenue at zero marketing cost — including a surprising cohort of non-buyer advocates.</p>
+        <span class="reco-tag">Recommendation: Formal referral rewards program</span>
+      </div>
+      <div class="insight-card">
+        <i class="fa-solid fa-eye"></i>
+        <h4>Progressive Lenses Are the Highest-Value Product</h4>
+        <p>Equal in volume to other vision types but the highest revenue generator (₹1.21 Cr) due to premium pricing, margin and complexity.</p>
+        <span class="reco-tag">Recommendation: Invest in precision testing &amp; consultation capability</span>
+      </div>
+      <div class="insight-card">
+        <i class="fa-solid fa-glasses"></i>
+        <h4>Glass Products Dominate Category Revenue</h4>
+        <p>Glasses contribute 33% of total product revenue — nearly double any other category — confirming prescription eyewear as the core business.</p>
+        <span class="reco-tag">Recommendation: Protect against churn among Glass buyers</span>
+      </div>
+      <div class="insight-card">
+        <i class="fa-solid fa-scale-balanced"></i>
+        <h4>Staff Performance Is Highly Standardized</h4>
+        <p>Revenue, conversion, retention and churn stay within a narrow band across all 20 staff — the organization runs on process, not stars.</p>
+        <span class="reco-tag">Recommendation: Invest growth budget in demand-side levers, not staffing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STRATEGIC RECOMMENDATIONS ============ -->
+<section id="recommendations" class="section alt">
+  <div class="container">
+    <p class="section-tag reveal">11 · STRATEGIC RECOMMENDATIONS</p>
+    <h2 class="reveal">A Prioritized Roadmap for Management</h2>
+    <div class="priority-list reveal">
+      <div class="priority-item"><span class="priority-num">P1</span><div><h4>Improve Retention Among Senior Customers</h4><p>Periodic eye-exam reminders, prescription renewal campaigns, post-purchase follow-ups and personalized CRM. Highest ROI lever in the business.</p></div></div>
+      <div class="priority-item"><span class="priority-num">P2</span><div><h4>Invest in Progressive Lens Infrastructure</h4><p>Advanced diagnostic equipment, staff training, precision fitting — protects the highest-margin, highest-revenue product line.</p></div></div>
+      <div class="priority-item"><span class="priority-num">P3</span><div><h4>Build a Referral Reward Program</h4><p>Formalize the organic 9% referrer base — target 15–20% participation to compound low-cost acquisition.</p></div></div>
+      <div class="priority-item"><span class="priority-num">P4</span><div><h4>Target Teenagers Through Digital Campaigns</h4><p>Small but highest-quality segment by conversion &amp; retention — social media, school partnerships, youth-oriented referral incentives.</p></div></div>
+      <div class="priority-item"><span class="priority-num">P5</span><div><h4>Reduce Window Shoppers via CRM &amp; Sales Training</h4><p>4,279 visitors leave without buying every period — even a modest conversion lift compounds directly into revenue.</p></div></div>
+    </div>
+
+    <div class="two-col reveal" style="margin-top:48px">
+      <div class="reco-block">
+        <h4><i class="fa-solid fa-users-viewfinder"></i> Customer Relationship Management</h4>
+        <ul>
+          <li>Prioritize Senior Customer retention via reminders &amp; loyalty programs</li>
+          <li>Improve first-time customer experience to drive repeat purchases</li>
+          <li>Structured CRM campaigns to reconnect churned customers</li>
+        </ul>
+      </div>
+      <div class="reco-block">
+        <h4><i class="fa-solid fa-bullhorn"></i> Referral Growth</h4>
+        <ul>
+          <li>Formal referral rewards program</li>
+          <li>Family-based referral campaigns, especially among seniors</li>
+          <li>Promote via WhatsApp, SMS and in-store touchpoints</li>
+        </ul>
+      </div>
+      <div class="reco-block">
+        <h4><i class="fa-solid fa-cart-shopping"></i> Product Strategy</h4>
+        <ul>
+          <li>Expand Progressive Lens adoption via premium consultation</li>
+          <li>Cross-sell premium frames at every lens replacement</li>
+          <li>Bundle Lens Solutions to lift average order value</li>
+          <li>Maintain diversified brand portfolio</li>
+        </ul>
+      </div>
+      <div class="reco-block">
+        <h4><i class="fa-solid fa-chart-line"></i> Retention &amp; Operations</h4>
+        <ul>
+          <li>Monitor 90–180 day "At Risk" customers proactively</li>
+          <li>Annual eye-exam &amp; prescription renewal reminders</li>
+          <li>Maintain standardized staff training and KPI monitoring</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONCLUSION ============ -->
+<section id="conclusion" class="section">
+  <div class="container narrow">
+    <p class="section-tag reveal">12 · CONCLUSION</p>
+    <h2 class="reveal">A Stable Business With a Clear Growth Roadmap</h2>
+    <div class="conclusion-grid reveal">
+      <div class="conc-card good">
+        <h4><i class="fa-solid fa-circle-check"></i> Strengths</h4>
+        <ul>
+          <li>Strong, loyal senior customer base driving volume, revenue &amp; referrals</li>
+          <li>Diversified product &amp; brand portfolio reduces concentration risk</li>
+          <li>Consistent, standardized staff performance</li>
+          <li>Healthy zero-cost referral channel (~10% of revenue)</li>
+        </ul>
+      </div>
+      <div class="conc-card risk">
+        <h4><i class="fa-solid fa-triangle-exclamation"></i> Weaknesses / Risks</h4>
+        <ul>
+          <li>Heavy revenue concentration in the 60+ segment (37%) — an aging-cohort risk</li>
+          <li>High first-time buyer churn (51.7%) limits repeat-customer pipeline growth</li>
+          <li>₹47.8L of historical revenue already lapsed and at risk of permanent loss</li>
+        </ul>
+      </div>
+      <div class="conc-card opp">
+        <h4><i class="fa-solid fa-rocket"></i> Future Opportunities</h4>
+        <ul>
+          <li>Convert Teenagers' strong conversion/retention into greater acquisition volume</li>
+          <li>Formalize referral incentives to scale a proven low-cost channel</li>
+          <li>Expand Progressive lens &amp; frame cross-sell for margin growth</li>
+        </ul>
+      </div>
+    </div>
+    <p class="reveal" style="margin-top:32px">This project demonstrates how structured SQL analysis and business intelligence can convert raw transactional data into an actionable growth roadmap — spanning customer lifecycle, referral economics, churn, staff performance, and product strategy — to support confident, data-driven management decisions.</p>
+  </div>
+</section>
+
+<!-- ============ TECHNICAL DIVIDER ============ -->
+<section id="technical-divider" class="tech-divider">
+  <div class="container">
+    <div class="tech-divider-inner reveal">
+      <span class="tech-divider-line"></span>
+      <div class="tech-divider-label">
+        <i class="fa-solid fa-code"></i>
+        <div>
+          <p class="tech-divider-eyebrow">Part Two</p>
+          <h2>Technical Implementation</h2>
+          <p class="tech-divider-sub">How the analysis above was actually built — database design, SQL engineering, and the queries and views behind every dashboard.</p>
+        </div>
+      </div>
+      <span class="tech-divider-line"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DATASET OVERVIEW ============ -->
+<section id="dataset" class="section alt">
+  <div class="container">
+    <p class="section-tag reveal">13 · DATASET OVERVIEW</p>
+    <h2 class="reveal">Nine Interconnected Relational Tables</h2>
+    <p class="section-lead reveal">The database follows normalization principles, connected through primary and foreign keys, covering the full customer-to-transaction journey.</p>
+    <div class="grid-icons reveal">
+      <div class="data-card"><i class="fa-solid fa-users"></i><h4>Customers</h4><p>8,000 records — demographics, referral source, assigned staff</p></div>
+      <div class="data-card"><i class="fa-solid fa-file-invoice"></i><h4>Invoices</h4><p>3,721 transactions — billing, tax, payment mode</p></div>
+      <div class="data-card"><i class="fa-solid fa-boxes-stacked"></i><h4>Invoice Items</h4><p>Line-item level product &amp; quantity detail</p></div>
+      <div class="data-card"><i class="fa-solid fa-glasses"></i><h4>Products</h4><p>5 product categories, 201 product variants</p></div>
+      <div class="data-card"><i class="fa-solid fa-tags"></i><h4>Brands</h4><p>25 brands across frames, lenses, sunglasses &amp; solutions</p></div>
+      <div class="data-card"><i class="fa-solid fa-id-card"></i><h4>Staff</h4><p>20 staff members with assigned customer books</p></div>
+      <div class="data-card"><i class="fa-solid fa-eye"></i><h4>Prescriptions</h4><p>Vision type: Near, Distance, Bifocal, Progressive</p></div>
+      <div class="data-card"><i class="fa-solid fa-layer-group"></i><h4>Product Types</h4><p>Category classification linking products to brands</p></div>
+      <div class="data-card"><i class="fa-solid fa-share-from-square"></i><h4>Referral Data</h4><p>721 referrers generating 810 referred customers</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DATABASE DESIGN ============ -->
+<section id="db-design" class="section">
+  <div class="container">
+    <p class="section-tag reveal">14 · DATABASE DESIGN</p>
+    <h2 class="reveal">EER Diagram &amp; Schema Relationships</h2>
+    <p class="section-lead reveal">All tables are connected through primary/foreign key relationships enabling multi-dimensional joins across customer, transaction, product and staff dimensions.</p>
+    <div class="schema-visual reveal" id="schemaVisual">
+      <div class="schema-box" style="grid-area:cust">Customers<span>PK customer_id</span></div>
+      <div class="schema-box" style="grid-area:presc">Prescriptions<span>FK customer_id</span></div>
+      <div class="schema-box" style="grid-area:inv">Invoices<span>FK customer_id, staff_id</span></div>
+      <div class="schema-box" style="grid-area:staff">Staff<span>PK staff_id</span></div>
+      <div class="schema-box" style="grid-area:ii">Invoice Items<span>FK invoice_id, product_id</span></div>
+      <div class="schema-box" style="grid-area:prod">Products<span>FK brand_id, type_id</span></div>
+      <div class="schema-box" style="grid-area:brand">Brands<span>PK brand_id</span></div>
+      <div class="schema-box" style="grid-area:type">Product Types<span>PK type_id</span></div>
+    </div>
+    <div class="lightbox-hint reveal"><i class="fa-solid fa-arrows-to-eye"></i> Diagram is illustrative — reconstructed from the project's relational schema described in the report. Click boxes to inspect relationships.</div>
+
+    <h3 class="sub-h reveal">Foreign Key Relationships</h3>
+    <ul class="fk-list reveal">
+      <li><b>customers.assigned_staff_id</b> → staff.staff_id</li>
+      <li><b>customers.referred_by_id</b> → customers.customer_id (self-referencing)</li>
+      <li><b>invoices.customer_id</b> → customers.customer_id</li>
+      <li><b>invoices.staff_id</b> → staff.staff_id</li>
+      <li><b>invoice_items.invoice_id</b> → invoices.invoice_id</li>
+      <li><b>invoice_items.product_id</b> → products.product_id</li>
+      <li><b>products.brand_id</b> → brands.brand_id</li>
+      <li><b>products.product_type_id</b> → product_types.type_id</li>
+      <li><b>prescriptions.customer_id</b> → customers.customer_id</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ SQL TECHNIQUES ============ -->
+<section id="sql-tech" class="section alt">
+  <div class="container">
+    <p class="section-tag reveal">15 · SQL TECHNIQUES USED</p>
+    <h2 class="reveal">Advanced SQL Engineering</h2>
+    <div class="tech-tags reveal">
+      <span>CTEs (WITH clauses)</span><span>Nested CTEs</span><span>Reusable SQL VIEWS</span>
+      <span>Window &amp; Aggregate Functions</span><span>CASE WHEN Bucketing</span>
+      <span>GROUP BY ... WITH ROLLUP</span><span>Multi-table INNER/LEFT JOIN</span>
+      <span>DATEDIFF() Recency Logic</span><span>Self-Joins (Referral Network)</span>
+      <span>Subqueries &amp; Correlated Queries</span><span>HAVING Clause Filtering</span>
+      <span>Percentage &amp; Contribution Metrics</span>
+    </div>
+    <p class="reveal" style="margin-top:24px;color:var(--muted)">Dedicated views — <code>top_50_customers</code>, <code>repeated_customers</code>, <code>churn_customers</code>, <code>Product_Analysis_data</code> — were created to avoid re-deriving core logic across dozens of downstream queries, keeping analysis modular, consistent and query-efficient.</p>
+  </div>
+</section>
+
+<!-- ============ SQL QUERIES ACCORDION ============ -->
+<section id="sql" class="section">
+  <div class="container">
+    <p class="section-tag reveal">16 · SQL QUERIES & VIEWS</p>
+    <h2 class="reveal">Query Library — Problem → Code → Insight</h2>
+    <p class="section-lead reveal">A representative sample of the analytical SQL queries used throughout the project. Each is framed as a business question, backed by production SQL, and closed with the resulting insight.</p>
+    <div class="accordion reveal" id="sqlAccordion">
+
+      <div class="acc-item">
+        <button class="acc-head"><span><i class="fa-solid fa-circle-question"></i> Q1. Age distribution of walk-in customers</span><i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-body">
+          <p><b>Business Objective:</b> Identify which age segment represents the largest share of walk-in visitors to guide marketing and inventory focus.</p>
+          <pre><code>SELECT
+    CASE
+        WHEN age &lt; 20 THEN "Teenage_Customer"
+        WHEN age BETWEEN 20 AND 30 THEN "20's Customer"
+        WHEN age BETWEEN 31 AND 40 THEN "30's Customer"
+        WHEN age BETWEEN 41 AND 50 THEN "40's Customer"
+        WHEN age BETWEEN 51 AND 60 THEN "50's Customer"
+        WHEN age &gt; 60 THEN "Old_Age Customers"
+    END AS Age_group,
+    COUNT(*) AS Count_of_Customers,
+    ROUND(COUNT(*) * 100 / 8000, 2) AS Percentage
+FROM customers_details
+GROUP BY Age_group WITH ROLLUP
+ORDER BY Count_of_Customers DESC;</code></pre>
+          <p><b>Business Insight:</b> Old Age Customers (60+) are the largest segment — 2,920 customers (36.5%) — followed by a fairly even split across the 20s–50s (14–17% each). Teenagers are the smallest segment at 2.9%.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span><i class="fa-solid fa-circle-question"></i> Q2. Conversion rate by age group</span><i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-body">
+          <p><b>Business Objective:</b> Determine which age group converts walk-ins into buyers most effectively.</p>
+          <pre><code>SELECT
+  CASE
+    WHEN age &lt; 20 THEN "Teenage_Customer" ... END AS Age_group,
+  ROUND(COUNT(DISTINCT i.customer_id)*100 /
+        COUNT(DISTINCT c.customer_id), 2) AS Conversion_Rate
+FROM customers_details AS c
+LEFT JOIN invoices AS i ON c.customer_id = i.customer_id
+GROUP BY Age_group
+ORDER BY Conversion_Rate DESC;</code></pre>
+          <p><b>Business Insight:</b> Conversion is remarkably consistent (44%–48%) across every age group. 50's Customers convert best (48.18%), but Teenagers convert almost as well (48.03%) despite being the smallest visitor pool — a signal of untapped acquisition potential.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span><i class="fa-solid fa-circle-question"></i> Q3. Top 50 customers by lifetime revenue (reusable VIEW)</span><i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-body">
+          <p><b>Business Objective:</b> Create a single reusable ranking of the highest-value customers to power every downstream high-value-customer query.</p>
+          <pre><code>CREATE VIEW top_50_customers AS
+SELECT
+    i.customer_id,
+    SUM(i.final_bill_amount) AS Total_Revenue_by_Customer
+FROM invoices AS i
+GROUP BY i.customer_id
+ORDER BY Total_Revenue_by_Customer DESC
+LIMIT 50;</code></pre>
+          <p><b>Business Insight:</b> The Top 50 customers generate ₹23.71 lakh (4.64% of total revenue) from just 50 out of 3,721 buyers — and 100% of them are repeat customers, proving loyalty is the strongest predictor of high customer value.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span><i class="fa-solid fa-circle-question"></i> Q4. Churn customers VIEW (180-day inactivity rule)</span><i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-body">
+          <p><b>Business Objective:</b> Flag repeat customers who have not returned in 180+ days as "churned," reusable across age, staff and vision-type churn breakdowns.</p>
+          <pre><code>CREATE VIEW churn_customers AS
+SELECT
+    rc.customer_id, c.customer_full_name, c.mobile, c.age,
+    c.assigned_staff_id,
+    DATE(MAX(i.invoice_date)) AS last_visited_date,
+    DATEDIFF((SELECT MAX(invoice_date) FROM invoices),
+              MAX(i.invoice_date)) AS Number_of_days_from_last_visit
+FROM repeated_customers AS rc
+INNER JOIN customers_details AS c ON rc.customer_id = c.customer_id
+INNER JOIN invoices AS i ON rc.customer_id = i.customer_id
+GROUP BY rc.customer_id
+HAVING Number_of_days_from_last_visit &gt; 180
+ORDER BY Number_of_days_from_last_visit DESC;</code></pre>
+          <p><b>Note:</b> Because the dataset is historical, churn is calculated relative to the dataset's most recent invoice date (2026-01-11) rather than <code>CURDATE()</code>, avoiding overstated inactivity.</p>
+          <p><b>Business Insight:</b> 235 of 1,051 repeat customers (22.36%) have churned, at risk of losing ₹47.8 lakh in historical revenue permanently.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span><i class="fa-solid fa-circle-question"></i> Q5. Referral network — buyer vs non-buyer referrers</span><i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-body">
+          <p><b>Business Objective:</b> Test whether only paying customers refer others, or whether non-buyers also drive word-of-mouth growth.</p>
+          <pre><code>SELECT
+  'Regular_Customers' AS Type_Customers,
+  COUNT(DISTINCT c.customer_id) AS Visited_Customers,
+  COUNT(DISTINCT i.customer_id) AS Buyer_Customers,
+  ROUND(COUNT(DISTINCT i.customer_id)*100/COUNT(DISTINCT c.customer_id),2)
+    AS Conversion_rate
+FROM customers_details AS c
+LEFT JOIN invoices AS i ON c.customer_id = i.customer_id
+LEFT JOIN repeated_customers AS rc ON rc.customer_id = c.customer_id
+WHERE c.referred_by_id IS NULL
+UNION ALL
+SELECT 'Referral_Customers', COUNT(DISTINCT c.customer_id),
+  COUNT(DISTINCT i.customer_id),
+  ROUND(COUNT(DISTINCT i.customer_id)*100/COUNT(DISTINCT c.customer_id),2)
+FROM customers_details AS c
+LEFT JOIN invoices AS i ON c.customer_id = i.customer_id
+WHERE c.referred_by_id IS NOT NULL;</code></pre>
+          <p><b>Business Insight:</b> Non-buyer referrers (388) generate referrals at almost the same rate as buyer referrers (333) — 48.85% vs 44.92% conversion — proving advocacy is driven by overall trust/experience, not purchase status alone.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span><i class="fa-solid fa-circle-question"></i> Q6. Staff performance summary (multi-CTE)</span><i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-body">
+          <p><b>Business Objective:</b> Build one unified table combining assigned customers, buyers, repeated customers, conversion rate and loyalty rate per staff member.</p>
+          <pre><code>WITH customers AS (
+  SELECT DISTINCT c.customer_id AS all_customers, c.assigned_staff_id
+  FROM customers_details AS c
+),
+customers_staff AS (
+  SELECT cc.all_customers, cc.assigned_staff_id, s.staff_full_name
+  FROM staff AS s INNER JOIN customers AS cc
+  ON cc.assigned_staff_id = s.staff_id
+),
+customers_invoices AS (
+  SELECT DISTINCT i.customer_id AS buyer_customers FROM invoices AS i
+)
+SELECT
+  csiwrc.assigned_staff_id, csiwrc.staff_full_name,
+  COUNT(csiwrc.all_customers) AS Assigned_Customers,
+  COUNT(csiwrc.buyer_customers) AS Buyer_Customers,
+  COUNT(csiwrc.repeated_customers) AS Repeated_Customers,
+  ROUND(COUNT(csiwrc.buyer_customers)*100/COUNT(csiwrc.all_customers),2)
+    AS Customer_Conversion_Rate
+FROM customers_staff_invoices_with_repeated_customers AS csiwrc
+GROUP BY csiwrc.assigned_staff_id, csiwrc.staff_full_name;</code></pre>
+          <p><b>Business Insight:</b> Staff performance is tightly clustered (conversion 39.7%–50.5%, revenue ₹18.4L–₹26.8L) — the organization runs on standardized process rather than star performers.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============ SQL VIEWS ============ -->
+    <h3 class="sub-h reveal" style="margin-top:64px;">SQL Views — Reusable Analytical Building Blocks</h3>
+    <p class="section-lead reveal" style="margin-bottom:28px;">Five MySQL views sit underneath the query library above. Each was created once, then reused across dozens of downstream queries — turning repeated multi-table JOIN logic into a single, consistent, query-once source of truth.</p>
+
+    <div class="accordion reveal" id="viewsAccordion">
+
+      <div class="acc-item">
+        <button class="acc-head"><span><i class="fa-solid fa-table-cells"></i> View 1. <code>repeated_customers</code> — Base Loyalty Flag</span><i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-body">
+          <p><b>Purpose:</b> Flags every customer who has placed more than one invoice, so "is this a repeat customer?" never has to be recalculated from raw invoices again.</p>
+          <p><b>Why it was created:</b> Repeat-customer status is the single most reused filter in the entire project — it underpins the Lifecycle, Churn, Staff and Product modules. Centralizing it in one view keeps that definition consistent everywhere it's used.</p>
+          <pre><code>CREATE VIEW repeated_customers AS
+SELECT
+    customer_id,
+    COUNT(invoice_id) AS total_invoices
+FROM invoices
+GROUP BY customer_id
+HAVING COUNT(invoice_id) > 1;</code></pre>
+          <p><b>Columns produced:</b> <code>customer_id</code>, <code>total_invoices</code>.</p>
+          <p style="font-size:12.5px;color:var(--muted);font-style:italic;">Reconstructed directly from the view's documented definition in the project report ("stores all customers with more than 1 invoice") — the report describes this view narratively rather than with a code screenshot, but the SQL is the direct, unambiguous implementation of that description.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span><i class="fa-solid fa-table-cells"></i> View 2. <code>churn_customers</code> — Repeat-Customer Churn</span><i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-body">
+          <p><b>Purpose:</b> Identifies every repeat customer who has not purchased in over 180 days, ranked by how long they've been inactive.</p>
+          <p><b>Why it was created:</b> Churn among repeat customers is the costliest kind to lose (highest lifetime value), so this view was built as the single reusable source for every repeat-churn question — age-group churn, staff churn exposure, and revenue-at-risk.</p>
+          <pre><code>CREATE VIEW churn_customers AS
+SELECT
+    rc.customer_id,
+    c.customer_full_name,
+    c.mobile,
+    c.age,
+    c.assigned_staff_id,
+    DATE(MAX(i.invoice_date)) AS last_visited_date,
+    DATEDIFF(
+      (SELECT MAX(invoice_date) FROM invoices),
+      MAX(i.invoice_date)
+    ) AS Number_of_days_from_last_visit
+FROM repeated_customers AS rc
+INNER JOIN customers_details AS c ON rc.customer_id = c.customer_id
+INNER JOIN invoices AS i ON rc.customer_id = i.customer_id
+GROUP BY rc.customer_id
+HAVING Number_of_days_from_last_visit > 180
+ORDER BY Number_of_days_from_last_visit DESC;</code></pre>
+          <p><b>Columns produced:</b> <code>customer_id</code>, <code>customer_full_name</code>, <code>mobile</code>, <code>age</code>, <code>assigned_staff_id</code>, <code>last_visited_date</code>, <code>Number_of_days_from_last_visit</code>.</p>
+          <p style="font-size:12.5px;color:var(--muted);font-style:italic;">Note: inactivity is measured against the dataset's own most recent invoice date rather than <code>CURDATE()</code>, since the dataset is historical and using today's date would overstate churn.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span><i class="fa-solid fa-table-cells"></i> View 3. <code>non_repeated_churn_customers</code> — First-Time Buyer Churn</span><i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-body">
+          <p><b>Purpose:</b> Isolates buyers who made exactly one purchase and never returned, past the 180-day inactivity threshold — the largest single churn segment in the business.</p>
+          <p><b>Why it was created:</b> First-time buyer churn behaves completely differently from repeat-customer churn (different volumes, different causes, different fixes), so it needed its own dedicated, reusable definition rather than being mixed into the general churn view. It chains four CTEs to isolate exactly the customers who exist in <code>customers_details</code> but do <i>not</i> exist in <code>repeated_customers</code>.</p>
+          <pre><code>CREATE VIEW non_repeated_churn_customers AS
+WITH customers AS (
+    SELECT DISTINCT customer_id FROM customers_details
+),
+customer_details AS (
+    SELECT c.customer_id, cc.age, cc.mobile,
+           cc.customer_type, cc.referred_by_id, cc.assigned_staff_id
+    FROM customers AS c
+    INNER JOIN customers_details AS cc ON c.customer_id = cc.customer_id
+),
+customers_with_repeated_customers AS (
+    SELECT cd.customer_id, rc.customer_id AS repeated_customers,
+           cd.age, cd.mobile, cd.customer_type,
+           cd.referred_by_id, cd.assigned_staff_id
+    FROM customer_details AS cd
+    LEFT JOIN repeated_customers AS rc ON cd.customer_id = rc.customer_id
+),
+-- extracting_the_non_repeated_customers
+extracting_the_non_repeated_customers AS (
+    SELECT cwrc.customer_id, cwrc.repeated_customers,
+           cwrc.age, cwrc.mobile, cwrc.customer_type,
+           cwrc.referred_by_id, cwrc.assigned_staff_id
+    FROM customers_with_repeated_customers AS cwrc
+    WHERE cwrc.repeated_customers IS NULL
+),
+buyer_non_repeated_customer_details AS (
+    SELECT enrc.customer_id, enrc.age, enrc.mobile,
+           enrc.customer_type, enrc.referred_by_id, enrc.assigned_staff_id,
+           i.invoice_id, i.invoice_date, i.total_amount_items,
+           i.total_tax, i.final_bill_amount
+    FROM extracting_the_non_repeated_customers AS enrc
+    INNER JOIN invoices AS i ON enrc.customer_id = i.customer_id
+)
+SELECT
+    bnrcd.customer_id, bnrcd.age, bnrcd.mobile,
+    bnrcd.customer_type, bnrcd.referred_by_id, bnrcd.assigned_staff_id,
+    DATE(MAX(bnrcd.invoice_date)) AS Last_visit_date,
+    DATEDIFF(
+      (SELECT MAX(invoice_date) FROM invoices),
+      MAX(bnrcd.invoice_date)
+    ) AS Number_of_days_from_last_visit
+FROM buyer_non_repeated_customer_details AS bnrcd
+GROUP BY bnrcd.customer_id, bnrcd.age, bnrcd.mobile,
+         bnrcd.customer_type, bnrcd.referred_by_id, bnrcd.assigned_staff_id
+HAVING Number_of_days_from_last_visit > 180
+ORDER BY Number_of_days_from_last_visit DESC;</code></pre>
+          <p><b>Columns produced:</b> <code>customer_id</code>, <code>age</code>, <code>mobile</code>, <code>customer_type</code>, <code>referred_by_id</code>, <code>assigned_staff_id</code>, <code>Last_visit_date</code>, <code>Number_of_days_from_last_visit</code>.</p>
+          <p><b>Technique showcase:</b> 4 chained CTEs · LEFT JOIN exclusive filter (<code>WHERE ... IS NULL</code>) · scalar subquery · GROUP BY + HAVING on a derived column.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span><i class="fa-solid fa-table-cells"></i> View 4. <code>top_50_customers</code> — Revenue Leaderboard</span><i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-body">
+          <p><b>Purpose:</b> Ranks every customer by lifetime revenue and stores the top 50 as a reusable virtual table.</p>
+          <p><b>Why it was created:</b> Instead of recalculating the revenue ranking inside every subsequent query, this view is built once and reused across the age-group, customer-type, vision-type, product, and at-risk-VIP analyses — keeping every downstream query short and consistent.</p>
+          <pre><code>CREATE VIEW top_50_customers AS
+SELECT
+    i.customer_id,
+    SUM(i.final_bill_amount) AS Total_Revenue_by_Customer
+FROM invoices AS i
+GROUP BY i.customer_id
+ORDER BY Total_Revenue_by_Customer DESC
+LIMIT 50;</code></pre>
+          <p><b>Columns produced:</b> <code>customer_id</code>, <code>Total_Revenue_by_Customer</code>.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-head"><span><i class="fa-solid fa-table-cells"></i> View 5. <code>Product_Analysis_data</code> — Master Product Analytics View</span><i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-body">
+          <p><b>Purpose:</b> Consolidates customer demographics, vision type, assigned staff, repeat-customer status, repeat-churn status, Top-50 flag, invoice details and item-level product data into one centralized, analysis-ready table.</p>
+          <p><b>Why it was created:</b> Every product question — product-wise sales, brand performance, category analysis, vision-type vs product preference, age-group preference, repeat/churn/Top-50 purchasing behaviour — needs the <i>same</i> nine-table join. Building it once as a view eliminates rewriting that join for every query and makes the entire product module modular and fast to extend.</p>
+          <pre><code>CREATE VIEW Product_Analysis_data AS
+WITH customers AS (
+    SELECT DISTINCT customer_id FROM customers_details
+),
+customers_detail AS (
+    SELECT c.customer_id, cd.age, cd.mobile, cd.customer_type,
+           cd.assigned_staff_id, cd.referred_by_id
+    FROM customers AS c
+    INNER JOIN customers_details AS cd ON cd.customer_id = c.customer_id
+),
+cd_vision AS (
+    SELECT cd.customer_id, cd.age, cd.mobile, cd.customer_type,
+           cd.assigned_staff_id, cd.referred_by_id, p.vision_type
+    FROM customers_detail AS cd
+    INNER JOIN prescriptions AS p ON p.customer_id = cd.customer_id
+),
+cdv_staff AS (
+    SELECT cdv.customer_id, cdv.age, cdv.mobile, cdv.customer_type,
+           cdv.assigned_staff_id, cdv.referred_by_id,
+           cdv.vision_type, s.staff_full_name
+    FROM cd_vision AS cdv
+    INNER JOIN staff AS s ON s.staff_id = cdv.assigned_staff_id
+),
+cdvs_repeated AS (
+    SELECT cdvs.customer_id, cdvs.age, cdvs.mobile, cdvs.customer_type,
+           cdvs.assigned_staff_id, cdvs.referred_by_id,
+           cdvs.vision_type, cdvs.staff_full_name,
+           rc.customer_id AS repeated_customers
+    FROM cdv_staff AS cdvs
+    LEFT JOIN repeated_customers AS rc ON rc.customer_id = cdvs.customer_id
+),
+cdvsr_churn AS (
+    SELECT cdvsr.customer_id, cdvsr.age, cdvsr.mobile, cdvsr.customer_type,
+           cdvsr.assigned_staff_id, cdvsr.referred_by_id,
+           cdvsr.vision_type, cdvsr.staff_full_name, cdvsr.repeated_customers,
+           rcc.customer_id AS repeated_churn_customers
+    FROM cdvs_repeated AS cdvsr
+    LEFT JOIN repeated_churn_customers AS rcc ON cdvsr.customer_id = rcc.customer_id
+),
+cdvsrc_top AS (
+    SELECT cdvsrc.customer_id, cdvsrc.age, cdvsrc.mobile, cdvsrc.customer_type,
+           cdvsrc.assigned_staff_id, cdvsrc.referred_by_id,
+           cdvsrc.vision_type, cdvsrc.staff_full_name,
+           cdvsrc.repeated_customers, cdvsrc.repeated_churn_customers,
+           tc.customer_id AS top_50_customers
+    FROM cdvsr_churn AS cdvsrc
+    LEFT JOIN top_50_customers AS tc ON tc.customer_id = cdvsrc.customer_id
+),
+cdvsrct_invoices AS (
+    SELECT cdvsrct.customer_id, cdvsrct.age, cdvsrct.mobile, cdvsrct.customer_type,
+           cdvsrct.assigned_staff_id, cdvsrct.referred_by_id,
+           cdvsrct.vision_type, cdvsrct.staff_full_name,
+           cdvsrct.repeated_customers, cdvsrct.repeated_churn_customers,
+           cdvsrct.top_50_customers, i.invoice_id
+    FROM cdvsrc_top AS cdvsrct
+    INNER JOIN invoices AS i ON i.customer_id = cdvsrct.customer_id
+),
+cdvsrcti_invoice_items AS (
+    SELECT cdvsrcti.customer_id, cdvsrcti.age, cdvsrcti.mobile, cdvsrcti.customer_type,
+           cdvsrcti.assigned_staff_id, cdvsrcti.referred_by_id,
+           cdvsrcti.vision_type, cdvsrcti.staff_full_name,
+           cdvsrcti.repeated_customers, cdvsrcti.repeated_churn_customers,
+           cdvsrcti.top_50_customers, cdvsrcti.invoice_id,
+           ii.item_id, ii.product_id, ii.brand_id, ii.product_type_id,
+           ii.quantity, ii.final_product_price
+    FROM cdvsrct_invoices AS cdvsrcti
+    INNER JOIN invoice_items AS ii ON ii.invoice_id = cdvsrcti.invoice_id
+)
+SELECT
+    cdvsrctii.customer_id, cdvsrctii.age, cdvsrctii.mobile, cdvsrctii.customer_type,
+    cdvsrctii.assigned_staff_id, cdvsrctii.referred_by_id,
+    cdvsrctii.vision_type, cdvsrctii.staff_full_name,
+    cdvsrctii.repeated_customers, cdvsrctii.repeated_churn_customers,
+    cdvsrctii.top_50_customers, cdvsrctii.invoice_id, cdvsrctii.item_id,
+    cdvsrctii.product_id, cdvsrctii.brand_id, cdvsrctii.product_type_id,
+    cdvsrctii.quantity, cdvsrctii.final_product_price
+FROM cdvsrcti_invoice_items AS cdvsrctii;</code></pre>
+          <p><b>Columns produced:</b> 17 columns spanning customer demographics, vision type, assigned staff, loyalty/churn/VIP flags, and full item-level invoice data.</p>
+          <p><b>Technique showcase:</b> 9 chained CTEs · four sequential LEFT JOINs layering in independent flags (repeat, repeat-churn, Top-50) · two INNER JOINs unrolling invoices down to line-item grain — the single most complex object in the project.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT / FOOTER ============ -->
+<footer id="about">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h3>Mahesh R. Sawant</h3>
+        <p>B.Tech Computer Science (AIML), Mumbai University · Business Analyst</p>
+        <p class="muted">Retail Optical Store Business Analytics — SQL · Advanced Excel · GitHub</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/mahesh-sawant-614540269" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+        <a href="https://github.com/Maheshsawant29" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+        <a href="mailto:maheshsawant29040422@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a>
+        <a href="tel:9321666830"><i class="fa-solid fa-phone"></i> +91 93216 66830</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Mahesh Sawant — Retail Optical Store SQL Analytics Project. Built with HTML, CSS &amp; JavaScript.</div>
+  </div>
+</footer>
+<button id="toTop" aria-label="scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
