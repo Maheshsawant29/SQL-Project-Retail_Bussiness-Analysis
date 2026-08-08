@@ -86,7 +86,10 @@ The project contains detailed SQL analysis across multiple business domains.
 - Customer Conversion Funnel
 - Customer Revenue Analysis
 - Customer Lifetime Value
+- Visited Customers
+- Buyere Customers
 - Repeat Customer Analysis
+- Churn Customers
 
 ### Referral Analysis
 
