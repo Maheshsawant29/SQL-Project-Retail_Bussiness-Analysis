@@ -86,17 +86,19 @@ The project contains detailed SQL analysis across multiple business domains.
 - Customer Conversion Funnel
 - Customer Revenue Analysis
 - Customer Lifetime Value
-- Visited Customers
-- Buyere Customers
+- Visited Customers Analysis
+- Buyere Customers Analysis
 - Repeat Customer Analysis
-- Churn Customers
+- Churn Customers Analysis
 
 ### Referral Analysis
 
 - Referral Conversion
 - Referral Revenue
+- Referrers Customer Analysis
 - Referrer Performance
 - Referral Customer Behaviour
+- Buyer v/s Non Buyer referrers effectiveness
 
 ### Churn Analysis
 
@@ -142,7 +144,8 @@ Some major insights discovered during the analysis include:
 
 The project includes interactive dashboards covering:
 
-- Customer Analysis
+- Customer Demographics
+- Customer Lifecycle Analysis
 - Referral Analysis
 - Churn Analysis
 - Staff Analysis
